@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">HackPlat</string>
+    <string name="username">User Name</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="reset">Reset</string>
+    <string name="usernamehint">someone@example.com</string>
+    <string name="passwordhint">Your Password</string>
+    <string name="donthaveaccount">Don\'t Have an Account?</string>
+    <string name="title_activity_home"></string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">HackPlat</string>
+    <string name="nav_header_subtitle">damsarar@hackplat.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+</resources>
