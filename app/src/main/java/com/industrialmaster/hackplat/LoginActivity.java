@@ -67,6 +67,7 @@ public class LoginActivity extends Activity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
+
                 String email = inputEmail.getText().toString().trim();
                 String password = inputPassword.getText().toString().trim();
 
@@ -74,11 +75,10 @@ public class LoginActivity extends Activity {
                 if (!email.isEmpty() && !password.isEmpty()) {
                     // login user
                     checkLogin(email, password);
+                    //Toast.makeText(getApplicationContext(),"here is", Toast.LENGTH_LONG).show();
                 } else {
                     // Prompt user to enter credentials
-                    Toast.makeText(getApplicationContext(),
-                            "Please enter the credentials!", Toast.LENGTH_LONG)
-                            .show();
+                    Toast.makeText(getApplicationContext(), "Please enter the credentials!", Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -102,16 +102,19 @@ public class LoginActivity extends Activity {
      * */
     private void checkLogin(final String email, final String password) {
         // Tag used to cancel the request
+
         String tag_string_req = "req_login";
 
         pDialog.setMessage("Logging in ...");
         showDialog();
 
-        StringRequest strReq = new StringRequest(Method.GET,
-                AppConfig.URL_LOGIN, new Response.Listener<String>() {
+
+
+        StringRequest strReq = new StringRequest(Method.GET,"http://damsara.tk/hackplat/login.php?email=" + email + "&password=" + password, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
+
                 Log.d(TAG, "Login Response: " + response.toString());
                 hideDialog();
 
@@ -145,8 +148,7 @@ public class LoginActivity extends Activity {
                     } else {
                         // Error in login. Get the error message
                         String errorMsg = jObj.getString("error_msg");
-                        Toast.makeText(getApplicationContext(),
-                                errorMsg, Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), errorMsg, Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     // JSON error
@@ -160,23 +162,10 @@ public class LoginActivity extends Activity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e(TAG, "Login Error: " + error.getMessage());
-                Toast.makeText(getApplicationContext(),
-                        error.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
                 hideDialog();
             }
-        }) {
-
-            @Override
-            protected Map<String, String> getParams() {
-                // Posting parameters to login url
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("email", email);
-                params.put("password", password);
-
-                return params;
-            }
-
-        };
+        }) ;
 
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);

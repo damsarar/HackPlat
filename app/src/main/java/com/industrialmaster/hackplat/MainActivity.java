@@ -17,6 +17,7 @@ public class MainActivity extends Activity {
     private TextView txtName;
     private TextView txtEmail;
     private Button btnLogout;
+    private Button btnGoToMenu;
 
     private SQLiteHandler db;
     private SessionManager session;
@@ -29,6 +30,7 @@ public class MainActivity extends Activity {
         txtName = (TextView) findViewById(R.id.name);
         txtEmail = (TextView) findViewById(R.id.email);
         btnLogout = (Button) findViewById(R.id.btnLogout);
+        btnGoToMenu = (Button) findViewById(R.id.btnGoToMenu);
 
         // SqLite database handler
         db = new SQLiteHandler(getApplicationContext());
@@ -58,12 +60,16 @@ public class MainActivity extends Activity {
                 logoutUser();
             }
         });
+
+        btnGoToMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToMenu();
+            }
+        });
+
     }
 
-    /**
-     * Logging out the user. Will set isLoggedIn flag to false in shared
-     * preferences Clears the user data from sqlite users table
-     * */
     private void logoutUser() {
         session.setLogin(false);
 
@@ -73,5 +79,12 @@ public class MainActivity extends Activity {
         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();
+    }
+
+
+    private void goToMenu(){
+        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+        startActivity(intent);
+
     }
 }
