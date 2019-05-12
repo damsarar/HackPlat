@@ -69,9 +69,10 @@ public class RegisterActivity extends Activity {
                 String name = inputFullName.getText().toString().trim();
                 String email = inputEmail.getText().toString().trim();
                 String password = inputPassword.getText().toString().trim();
+                String img_url="http://damsara.tk/hackplat/profile_images/Pudith.jpg";
 
                 if (!name.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
-                    registerUser(name, email, password);
+                    registerUser(name, email, password, img_url);
                 } else {
                     Toast.makeText(getApplicationContext(),
                             "Please enter your details!", Toast.LENGTH_LONG)
@@ -97,14 +98,14 @@ public class RegisterActivity extends Activity {
      * Function to store user in MySQL database will post params(tag, name,
      * email, password) to register url
      * */
-    private void registerUser(final String name, final String email, final String password) {
+    private void registerUser(final String name, final String email, final String password, final String img_url) {
         // Tag used to cancel the request
         String tag_string_req = "req_register";
 
         pDialog.setMessage("Registering ...");
         showDialog();
 
-        StringRequest strReq = new StringRequest(Method.GET, "http://damsara.tk/hackplat/register.php?email=" + email + "&password=" + password + "&name=" + name, new Response.Listener<String>() {
+        StringRequest strReq = new StringRequest(Method.GET, "http://damsara.tk/hackplat/register.php?email=" + email + "&password=" + password + "&name=" + name + "&img_url=" + img_url, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
@@ -122,10 +123,11 @@ public class RegisterActivity extends Activity {
                         JSONObject user = jObj.getJSONObject("user");
                         String name = user.getString("name");
                         String email = user.getString("email");
+                        String img_url = jObj.getString("img_url");
                         String created_at = user.getString("created_at");
 
                         // Inserting row in users table
-                        db.addUser(name, email, uid, created_at);
+                        db.addUser(name, email, uid, img_url, created_at);
 
                         Toast.makeText(getApplicationContext(), "User successfully registered. Try login now!", Toast.LENGTH_LONG).show();
 

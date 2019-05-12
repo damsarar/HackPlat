@@ -1,9 +1,13 @@
 package com.industrialmaster.hackplat;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -19,9 +23,12 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class EventActivity extends AppCompatActivity {
+
+    private TextView txtName;
 
     private SQLiteHandler db;
     private SessionManager session;
@@ -30,6 +37,37 @@ public class EventActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
+
+        txtName = (TextView) findViewById(R.id.name);
+
+        // SqLite database handler
+        db = new SQLiteHandler(getApplicationContext());
+
+        // session manager
+        session = new SessionManager(getApplicationContext());
+
+        if (!session.isLoggedIn()) {
+            logoutUser();
+        }
+
+        // Fetching user details from sqlite
+        HashMap<String, String> user = db.getUserDetails();
+
+        String name = user.get("name");
+
+        // Displaying the user details on the screen
+        txtName.setText(name);
+    }
+
+    private void logoutUser() {
+        session.setLogin(false);
+
+        db.deleteUsers();
+
+        // Launching the login activity
+        Intent intent = new Intent(EventActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override
@@ -41,6 +79,8 @@ public class EventActivity extends AppCompatActivity {
         RequestQueue queue= Volley.newRequestQueue(this);
         String url="http://damsara.tk/hackplat/eventList.php";
 
+        final List<String> list=new ArrayList<>();
+
         JsonArrayRequest request1=new JsonArrayRequest(
                 Request.Method.GET,
                 url,
@@ -48,7 +88,7 @@ public class EventActivity extends AppCompatActivity {
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        List<String> list=new ArrayList<>();
+
                         for(int i=0;i<response.length();i++){
                             try{
                                 JSONObject obj=response.getJSONObject(i);
@@ -76,5 +116,30 @@ public class EventActivity extends AppCompatActivity {
         );
 
         queue.add(request1);
+
+
+//        int layout=android.R.layout.simple_expandable_list_item_1;
+//        ArrayAdapter<String> adapter=new ArrayAdapter<>(this,layout,list);
+//
+//        ListView lv2=findViewById(R.id.eventList);
+//        lv2.setAdapter(adapter);
+//
+//        lv2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                TextView tv=(TextView) view;
+//                String note=tv.getText().toString();
+//
+//                String file=lv.get(position);
+//
+//                Intent intent=new Intent(NotesActivity.this,NoteAddActivity.class);
+//
+//                intent.putExtra("note",note);
+//                intent.putExtra("file",file);
+//
+//                startActivity(intent);
+//
+//            }
+//        });
     }
 }

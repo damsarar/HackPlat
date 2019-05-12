@@ -5,6 +5,7 @@
     android:layout_height="fill_parent"
     android:gravity="center"
     android:orientation="vertical"
+    tools:context=".EventAddActivity"
     android:padding="10dp" >
 
 
@@ -52,7 +53,7 @@
             android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:gravity="center"
             android:hint="Event Name"
             android:singleLine="true"
@@ -75,7 +76,7 @@
             android:id="@+id/organizer"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:gravity="center"
             android:hint="Organizer of the event" />
 
@@ -93,10 +94,10 @@
             android:id="@+id/venue"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:gravity="center"
             android:hint="Venue of the event"
-            android:inputType="textPassword"
+            android:inputType="textCapWords"
             android:singleLine="true"/>
 
         <TextView
@@ -113,10 +114,10 @@
             android:id="@+id/dateAt"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:gravity="center"
             android:hint="Date of the event"
-            android:inputType="textPassword"
+            android:inputType="textCapWords"
             android:singleLine="true"/>
 
     </LinearLayout>
@@ -128,15 +129,15 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/btnRegister"
+            android:id="@+id/btnAdd"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
             android:layout_marginTop="10dp"
-            android:textColor="@color/colorText"
+            android:layout_weight="1"
             android:background="@drawable/buttonstyle"
-            android:textSize="20sp"
-            android:text="Register"/>
+            android:text="Create"
+            android:textColor="@color/colorText"
+            android:textSize="20sp" />
 
 
         <Button

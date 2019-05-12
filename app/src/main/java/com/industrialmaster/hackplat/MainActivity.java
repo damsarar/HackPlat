@@ -4,11 +4,16 @@ import java.util.HashMap;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
 import com.industrialmaster.hackplat.helper.SQLiteHandler;
 import com.industrialmaster.hackplat.helper.SessionManager;
 
@@ -28,7 +33,6 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         txtName = (TextView) findViewById(R.id.name);
-        txtEmail = (TextView) findViewById(R.id.email);
         btnLogout = (Button) findViewById(R.id.btnLogout);
         btnGoToMenu = (Button) findViewById(R.id.btnGoToMenu);
 
@@ -46,11 +50,11 @@ public class MainActivity extends Activity {
         HashMap<String, String> user = db.getUserDetails();
 
         String name = user.get("name");
-        String email = user.get("email");
+        String img_url = user.get("img_url");
 
         // Displaying the user details on the screen
         txtName.setText(name);
-        txtEmail.setText(email);
+
 
         // Logout button click event
         btnLogout.setOnClickListener(new View.OnClickListener() {
@@ -60,13 +64,30 @@ public class MainActivity extends Activity {
                 logoutUser();
             }
         });
-
         btnGoToMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goToMenu();
             }
         });
+
+        final ImageView imageView = findViewById(R.id.profile_image);
+
+        ImageRequest request= new ImageRequest(img_url,
+                new Response.Listener<Bitmap>() {
+                    @Override
+                    public void onResponse(Bitmap bitmap) {
+                        imageView.setImageBitmap(bitmap);
+                    }
+                }, 0, 0, null,
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        imageView.setImageResource(R.drawable.propic);
+                    }
+                });
+
+        AppController.getInstance().addToRequestQueue(request);
 
     }
 

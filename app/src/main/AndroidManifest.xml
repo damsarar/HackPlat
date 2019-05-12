@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".EventAddActivity"></activity>
+        <activity android:name=".EventViewActivity"></activity>
+        <activity android:name=".EventAddActivity" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".EventActivity" />

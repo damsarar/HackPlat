@@ -15,12 +15,25 @@
             android:layout_width="match_parent"
             android:layout_height="500dp"
             android:orientation="vertical">
-            <ImageView
+            <!--<ImageView-->
+                <!--android:id="@+id/imgview1"-->
+                <!--android:layout_marginTop="45dp"-->
+                <!--android:layout_gravity="center_horizontal"-->
+                <!--android:layout_width="150dp"-->
+                <!--android:layout_height="150dp"-->
+                <!--android:src="@drawable/propic"/>-->
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/profile_image"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
                 android:layout_marginTop="45dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:src="@drawable/propic"/>
+                android:src="@drawable/propic"
+                app:civ_border_width="3dp"
+                app:civ_border_color="@color/white"/>
+
             <TextView
                 android:id="@+id/name"
                 android:layout_marginTop="10dp"
@@ -28,9 +41,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#fff"
-                android:textAllCaps="true"
                 android:textStyle="bold"
-                android:text="name"
+                android:text="Name"
                 android:textSize="36sp"/>
 
             <TextView
@@ -50,7 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorText"
-                android:text="Member since :"/>
+                android:text="Member since"/>
 
             <TextView
                 android:id="@+id/createdDate"
@@ -91,7 +103,6 @@
 
             </LinearLayout>
         </LinearLayout>
-
     </RelativeLayout>
 
 </LinearLayout>
