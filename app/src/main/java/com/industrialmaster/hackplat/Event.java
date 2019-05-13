@@ -1,6 +1,6 @@
 package com.industrialmaster.hackplat;
 
-public class EventDataModel {
+public class Event {
     private String name, organizer, venue, date_at, date_created, imgURL;
 
     public String getName() {

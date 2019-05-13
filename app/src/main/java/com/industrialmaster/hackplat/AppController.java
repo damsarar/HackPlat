@@ -5,12 +5,14 @@ import android.text.TextUtils;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 
 public class AppController extends Application {
     public static final String TAG = AppController.class.getSimpleName();
 
     private RequestQueue mRequestQueue;
+    private ImageLoader ImageLoader;
 
     private static AppController mInstance;
 
@@ -47,4 +49,13 @@ public class AppController extends Application {
             mRequestQueue.cancelAll(tag);
         }
     }
+
+    public ImageLoader getImageLoader() {
+        getRequestQueue();
+        if (ImageLoader == null) {
+            ImageLoader = new ImageLoader(this.mRequestQueue, new BitmapCache());
+        }
+        return this.ImageLoader;
+    }
+
 }
