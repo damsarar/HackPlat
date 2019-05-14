@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class EventListAdapter extends BaseAdapter {
@@ -51,8 +53,7 @@ public class EventListAdapter extends BaseAdapter {
         if (convertView == null)
             convertView = inflater.inflate(R.layout.activity_event_view, null);
 
-        if (imageLoader == null)
-            imageLoader = AppController.getInstance().getImageLoader();
+        if (imageLoader == null) imageLoader = AppController.getInstance().getImageLoader();
 
         NetworkImageView image = (NetworkImageView) convertView.findViewById(R.id.eventPic);
         TextView name = (TextView) convertView.findViewById(R.id.evenName);
@@ -68,7 +69,23 @@ public class EventListAdapter extends BaseAdapter {
         venue.setText(m.getVenue());
         organizer.setText(m.getOrganizer());
         date_at.setText(m.getDate_at());
-        created_at.setText(m.getDate_created());
+
+        String createdDate = m.getDate_created();
+        String createdTime = "00-00";
+
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdf3 = new SimpleDateFormat("HH:mm");
+
+        try {
+            Date date = sdf1.parse(createdDate);
+            createdDate = sdf2.format(date);
+            createdTime = sdf3.format(date);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        created_at.setText(createdDate + "  at  " + createdTime);
 
         return convertView;
 

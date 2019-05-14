@@ -143,10 +143,7 @@ public class EventActivity extends AppCompatActivity {
                                 dataSet.setDate_at(obj.getString("date_at"));
 
                                 dataSet.setDate_created(obj.getString("created_at"));
-//                                Toast.makeText(EventActivity.this,"Here!",Toast.LENGTH_SHORT).show();
                                 dataSet.setImgURL(obj.getString("img_url"));
-
-
 
                                 list.add(dataSet);
 
@@ -172,8 +169,6 @@ public class EventActivity extends AppCompatActivity {
 
         AppController.getInstance().addToRequestQueue(jsonreq);
 
-
-
     }
 
 
@@ -189,79 +184,4 @@ public class EventActivity extends AppCompatActivity {
         finish();
     }
 
-
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-//        final ListView lv=findViewById(R.id.eventList);
-//
-//        RequestQueue queue= Volley.newRequestQueue(this);
-//        String url="http://damsara.tk/hackplat/eventList.php";
-//
-//        final List<String> list=new ArrayList<>();
-//
-//        JsonArrayRequest request1=new JsonArrayRequest(
-//                Request.Method.GET,
-//                url,
-//                null,
-//                new Response.Listener<JSONArray>() {
-//                    @Override
-//                    public void onResponse(JSONArray response) {
-//
-//                        for(int i=0;i<response.length();i++){
-//                            try{
-//                                JSONObject obj=response.getJSONObject(i);
-//                                list.add(obj.getString("name"));
-//
-//                            }catch (Exception e){
-//
-//                            }
-//                        }
-//
-//                        int layout=android.R.layout.simple_list_item_1;
-//                        ArrayAdapter adapter=new ArrayAdapter(EventActivity.this,layout,list);
-//                        lv.setAdapter(adapter);
-//
-//                    }
-//                },
-//
-//                new Response.ErrorListener() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//                        Toast.makeText(EventActivity.this,"Error"+error,Toast.LENGTH_SHORT).show();
-//                    }
-//                }
-//
-//        );
-//
-//        queue.add(request1);
-
-////////////////////////////////////
-
-//        int layout=android.R.layout.simple_expandable_list_item_1;
-//        ArrayAdapter<String> adapter=new ArrayAdapter<>(this,layout,list);
-//
-//        ListView lv2=findViewById(R.id.eventList);
-//        lv2.setAdapter(adapter);
-//
-//        lv2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                TextView tv=(TextView) view;
-//                String note=tv.getText().toString();
-//
-//                String file=lv.get(position);
-//
-//                Intent intent=new Intent(NotesActivity.this,NoteAddActivity.class);
-//
-//                intent.putExtra("note",note);
-//                intent.putExtra("file",file);
-//
-//                startActivity(intent);
-//
-//            }
-//        });
-    }
 }
