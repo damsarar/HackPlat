@@ -1,6 +1,8 @@
 package com.industrialmaster.hackplat;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import android.app.Activity;
 import android.content.DialogInterface;
@@ -11,15 +13,27 @@ import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.industrialmaster.hackplat.helper.SQLiteHandler;
 import com.industrialmaster.hackplat.helper.SessionManager;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class MainActivity extends Activity {
+
+    private static final String tag = MainActivity.class.getSimpleName();
+    private List<Event> list = new ArrayList<Event>();
+    private ListView listView;
+    private EventListAdapter adapter;
 
     private TextView txtName;
     private TextView txtEmail;
@@ -35,7 +49,6 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         txtName = (TextView) findViewById(R.id.name);
-        btnLogout = (Button) findViewById(R.id.btnLogout);
         btnGoToMenu = (Button) findViewById(R.id.btnGoToMenu);
 
         // SqLite database handler
@@ -54,36 +67,55 @@ public class MainActivity extends Activity {
         String name = user.get("name");
         String img_url = user.get("img_url");
 
-        // Displaying the user details on the screen
-        txtName.setText(name);
 
-        btnLogout.setOnClickListener(new View.OnClickListener() {
+        listView = (ListView) findViewById(R.id.eventList);
+        adapter = new EventListAdapter(this, list);
+        listView.setAdapter(adapter);
 
+
+
+        JsonArrayRequest jsonreq = new JsonArrayRequest("http://damsara.tk/hackplat/eventList.php",
+                new Response.Listener<JSONArray>(){
+                    @Override
+                    public void onResponse(JSONArray response) {
+
+                        for (int i = 0; i < response.length(); i++) {
+                            try {
+
+                                JSONObject obj = response.getJSONObject(i);
+                                Event dataSet = new Event();
+
+                                dataSet.setName(obj.getString("name"));
+                                dataSet.setOrganizer(obj.getString("organizer"));
+                                dataSet.setVenue(obj.getString("venue"));
+                                dataSet.setDate_at(obj.getString("date_at"));
+
+                                dataSet.setDate_created(obj.getString("created_at"));
+                                dataSet.setImgURL(obj.getString("img_url"));
+
+                                list.add(dataSet);
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                        adapter.notifyDataSetChanged();
+                    }
+                },new Response.ErrorListener() {
             @Override
-            public void onClick(View v) {
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                builder.setTitle("Do you really want to log out?");
-//                builder.setMessage("You are about to delete all records of database. Do you really want to proceed ?");
-                builder.setCancelable(false);
-                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        logoutUser();
-                    }
-                });
-
-                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-
-                builder.show();
-
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(MainActivity.this,"Error"+error,Toast.LENGTH_SHORT).show();
+                AlertDialog.Builder add = new AlertDialog.Builder(MainActivity.this);
+                add.setMessage(error.getMessage()).setCancelable(true);
+                AlertDialog alert = add.create();
+                alert.setTitle("Error!!!");
+                alert.show();
             }
         });
+
+
+        AppController.getInstance().addToRequestQueue(jsonreq);
 
 
         btnGoToMenu.setOnClickListener(new View.OnClickListener() {

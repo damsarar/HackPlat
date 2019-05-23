@@ -56,9 +56,6 @@ public class HomeActivity extends AppCompatActivity {
         String name = user.get("name");
         String img_url = user.get("img_url");
 
-        // Displaying the user details on the screen
-        txtName.setText(name);
-
         LinearLayout llay= findViewById(R.id.goToAddEvent);
 
         llay.setOnClickListener(new View.OnClickListener() {

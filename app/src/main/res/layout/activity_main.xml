@@ -1,101 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity" >
+    android:gravity="center"
+    tools:context=".MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3"
-        android:layout_centerInParent="true"
-        android:layout_marginLeft="20dp"
-        android:layout_gravity="center"
-        android:layout_marginRight="20dp"
-        android:gravity="center"
-        android:orientation="vertical" >
+        android:orientation="horizontal"
+        android:background="@color/colorPrimaryDark"
+        android:layout_weight="1">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/welcome"
-            android:textSize="22dp" />
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/profile_image"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_marginTop="10dp"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/ic_account_circle_black_24dp"
-            app:civ_border_width="3dp"
-            app:civ_border_color="@color/colorSecondaryText"/>
-
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:padding="5dp"
-            android:textSize="36dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_height="wrap_content"
-            android:text="All your favourite events in one place!"
-            android:textSize="20dp"
-            android:background="@drawable/backgroundstyle1"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginLeft="20dp"
-        android:layout_margin="20dp"
-        android:layout_gravity="center"
-        android:layout_marginRight="20dp"
-        android:gravity="center"
-        android:orientation="vertical" >
-
-        <Button
-            android:id="@+id/btnGoToMenu"
-            android:layout_width="fill_parent"
-            android:layout_height="0dp"
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_marginTop="20dp"
-            android:textColor="@color/colorText"
-            android:background="@drawable/buttonstyle"
-            android:textSize="20sp"
-            android:text="MENU"/>
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btnLogout"
-            android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_marginTop="10dp"
-            android:textColor="@color/colorPrimary"
-            android:background="@drawable/buttonstyle2"
-            android:textSize="20sp"
-            android:text="@string/btn_logout" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/profile_image"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_margin="10dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/propic"
+                app:civ_border_width="1dp"
+                app:civ_border_color="@color/white"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="2">
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:textSize="22sp"
+                android:gravity="center"
+                android:text="Upcoming Events"
+                android:textColor="@color/colorText" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/btnGoToMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="25dp"
+                android:textColor="@color/white"
+                android:background="@drawable/ic_menu_black_24dp"
+                android:textSize="15sp" />
+
+
+
+        </LinearLayout>
+
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginLeft="20dp"
-        android:layout_gravity="center"
-        android:layout_marginRight="20dp"
-        android:gravity="center"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:layout_weight="6">
 
+        <ListView
+            android:id="@+id/eventList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></ListView>
     </LinearLayout>
+
+
+
 
 </LinearLayout>

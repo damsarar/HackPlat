@@ -33,7 +33,6 @@
                 app:civ_border_width="2dp"
                 app:civ_border_color="@color/white"/>
 
-
         </LinearLayout>
 
         <LinearLayout
@@ -47,12 +46,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:textSize="22sp"
-                android:gravity="left|center"
-                android:text="Name"
-                android:textColor="@color/colorText"
-                />
-
+                android:textSize="24sp"
+                android:gravity="center"
+                android:text="Menu"
+                android:textColor="@color/colorText" />
 
         </LinearLayout>
 
@@ -74,13 +71,10 @@
                 android:textSize="15sp"
                 android:text="@string/btn_logout" />
 
-
-
         </LinearLayout>
 
 
     </LinearLayout>
-
 
 
     <LinearLayout
@@ -101,7 +95,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="EVENTS"
+            android:text="YOUR EVENTS"
             android:textSize="18sp"
             android:gravity="center"
             android:layout_marginTop="10dp"/>
@@ -116,7 +110,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="You can view all the events"
+            android:text="You can view events you created"
             android:textSize="12sp"
             android:gravity="center"
             android:layout_marginTop="5dp"/>

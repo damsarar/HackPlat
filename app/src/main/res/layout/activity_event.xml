@@ -29,7 +29,7 @@
                 android:layout_margin="10dp"
                 android:layout_gravity="center_horizontal"
                 android:src="@drawable/propic"
-                app:civ_border_width="2dp"
+                app:civ_border_width="1dp"
                 app:civ_border_color="@color/white"/>
 
 
@@ -47,8 +47,8 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:textSize="22sp"
-                android:gravity="left|center"
-                android:text="Name"
+                android:gravity="center"
+                android:text="Your Events"
                 android:textColor="@color/colorText"
                 />
 

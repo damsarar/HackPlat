@@ -32,7 +32,6 @@ import java.util.List;
 public class EventActivity extends AppCompatActivity {
 
     private static final String tag = MainActivity.class.getSimpleName();
-    private static final String url = "https://raw.githubusercontent.com/iCodersLab/Custom-ListView-Using-Volley/master/richman.json";
     private List<Event> list = new ArrayList<Event>();
     private ListView listView;
     private EventListAdapter adapter;
@@ -65,9 +64,6 @@ public class EventActivity extends AppCompatActivity {
 
         String name = user.get("name");
         String img_url = user.get("img_url");
-
-        // Displaying the user details on the screen
-        txtName.setText(name);
 
         final ImageView imageView = findViewById(R.id.profile_image);
 
