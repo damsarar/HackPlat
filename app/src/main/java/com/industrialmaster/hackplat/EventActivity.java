@@ -91,7 +91,6 @@ public class EventActivity extends AppCompatActivity {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(EventActivity.this);
                 builder.setTitle("Do you really want to log out?");
-//                builder.setMessage("You are about to delete all records of database. Do you really want to proceed ?");
                 builder.setCancelable(false);
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
@@ -118,9 +117,7 @@ public class EventActivity extends AppCompatActivity {
         adapter = new EventListAdapter(this, list);
         listView.setAdapter(adapter);
 
-
-
-        JsonArrayRequest jsonreq = new JsonArrayRequest("http://damsara.tk/hackplat/eventList.php",
+        JsonArrayRequest jsonreq = new JsonArrayRequest("http://damsara.tk/hackplat/eventListByCreator.php?creator=" + name,
                 new Response.Listener<JSONArray>(){
                     @Override
                     public void onResponse(JSONArray response) {

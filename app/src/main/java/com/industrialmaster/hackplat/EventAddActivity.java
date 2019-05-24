@@ -14,9 +14,13 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.industrialmaster.hackplat.helper.SQLiteHandler;
+import com.industrialmaster.hackplat.helper.SessionManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
 
 public class EventAddActivity extends AppCompatActivity {
 
@@ -28,6 +32,9 @@ public class EventAddActivity extends AppCompatActivity {
     private EditText inputVenue;
     private EditText inputDate;
     private ProgressDialog pDialog;
+
+    private SQLiteHandler db;
+    private SessionManager session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +50,16 @@ public class EventAddActivity extends AppCompatActivity {
         pDialog = new ProgressDialog(this);
         pDialog.setCancelable(false);
 
+        db = new SQLiteHandler(getApplicationContext());
+        session = new SessionManager(getApplicationContext());
+
+        if (!session.isLoggedIn()) {
+            logoutUser();
+        }
+
+        HashMap<String, String> user = db.getUserDetails();
+        final String creator = user.get("name");
+
         btnAddEvent.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 String name = inputName.getText().toString().trim();
@@ -50,18 +67,18 @@ public class EventAddActivity extends AppCompatActivity {
                 String venue = inputVenue.getText().toString().trim();
                 String date_at = inputDate.getText().toString().trim();
 
+
                 if (!name.isEmpty() && !organizer.isEmpty() && !venue.isEmpty() && !date_at.isEmpty()) {
-                    addEvent(name, organizer, venue, date_at);
+                    addEvent(name, organizer, venue, date_at, creator);
                 } else {
                     Toast.makeText(getApplicationContext(),
-                            "Please enter event details!", Toast.LENGTH_LONG)
-                            .show();
+                            "Please enter event details!", Toast.LENGTH_LONG).show();
                 }
             }
         });
     }
 
-    public void addEvent(final String name, final String organizer, final String venue, final String date_at) {
+    public void addEvent(final String name, final String organizer, final String venue, final String date_at, final String creator) {
         // Tag used to cancel the request
         String tag_string_req = "req_register";
 
@@ -69,7 +86,7 @@ public class EventAddActivity extends AppCompatActivity {
         showDialog();
 
 
-        StringRequest strReq = new StringRequest(Request.Method.GET, "http://damsara.tk/hackplat/addEvent.php?name=" + name  + "&venue=" + venue + "&organizer=" + organizer + "&date_at=" + date_at, new Response.Listener<String>() {
+        StringRequest strReq = new StringRequest(Request.Method.GET, "http://damsara.tk/hackplat/addEvent.php?name=" + name  + "&venue=" + venue + "&organizer=" + organizer + "&creator=" + creator + "&date_at=" + date_at , new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
@@ -120,5 +137,16 @@ public class EventAddActivity extends AppCompatActivity {
     private void hideDialog() {
         if (pDialog.isShowing())
             pDialog.dismiss();
+    }
+
+    private void logoutUser() {
+        session.setLogin(false);
+
+        db.deleteUsers();
+
+        // Launching the login activity
+        Intent intent = new Intent(EventAddActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
